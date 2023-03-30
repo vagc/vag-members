@@ -1,11 +1,11 @@
-require "CSV"
+require "csv"
 
 class MembersController < ApplicationController
   before_action :set_member, only: %i[ show edit update destroy ]
 
   # GET /members or /members.json
   def index
-    @members = Member.all
+    # @members = Member.all
   end
 
   # GET /members/1 or /members/1.json
@@ -14,7 +14,7 @@ class MembersController < ApplicationController
 
   # GET /members/new
   def new
-    @member = Member.new
+    # @member = Member.new
   end
 
   # GET /members/1/edit

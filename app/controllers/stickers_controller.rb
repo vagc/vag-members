@@ -1,3 +1,5 @@
+require 'csv'
+
 class StickersController < ApplicationController
   before_action :set_sticker, only: %i[ show edit update destroy ]
 
@@ -74,14 +76,14 @@ class StickersController < ApplicationController
   end
 
   def get_number
-    if !params[:number].to_i
-      flash[:error] = "Enter a number between 20 -100"
+    if !params[:number].to_i || params[:number].to_i > 1000
+      flash[:error] = "Enter a below 1000."
       redirect_to(request.referer) && return
     end
 
     exists = Sticker.find_by_sticker_number(params[:number])
 
-    if exists
+    if exists || params[:number].to_i == 0 || params[:number].to_i == 1
       flash[:error] = "Number already taken"
       redirect_to(request.referer) && return
     end
@@ -95,6 +97,13 @@ class StickersController < ApplicationController
 
   def confirm
     @member = Member.find_by_email(session[:email])
+
+    sticker = Sticker.find_by_sticker_number(session[:number])
+
+    if sticker
+      flash[:error] = "Sorry, that number just got taken. Try again"
+      redirect_to(request.referer)
+    end
 
     if !Sticker.create(member: @member, sticker_number: session[:number], sticker_variation: params[:color])
       flash[:error] = "Something went wrong. Contact admins"
@@ -140,6 +149,15 @@ class StickersController < ApplicationController
       emergency_contact: row[9],
       amount_paid: row[10],
     }
+  end
+
+  def export 
+    CSV.open("stickers.csv", "wb") do |csv|
+      csv << Sticker.attribute_names
+      Sticker.find_each do |sticker|
+        csv << sticker.attributes.values
+      end
+    end
   end
 
 

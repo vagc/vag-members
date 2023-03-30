@@ -51,6 +51,10 @@ gem 'foreman'
 gem 'rack-cors'
 gem "pg"
 
+gem "unicorn"
+gem "thin"
+gem "passenger"
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

@@ -1,0 +1,37 @@
+<%= form_with url: "/get_email", method: :post, remote: false, class: "form-style-6" do |form| %>
+	<p>
+		<%= link_to image_tag('/logo.png', :class => "logo_image"), root_path %>
+	<p>
+	
+	<% if !flash.empty? %>
+			<div id="flash"> 
+					<% flash.keys.each do |k| %> 
+							<div class="<%= k %>">
+									<%= flash[k] %>
+							</div>  
+					<% end %>   
+			</div>
+	<% end %>
+	<p>
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Get details"%>
+  </div>
+<% end %>
+
+
+<%= form_with url: "/refresh", method: :get, remote: false, class: "form-style-6" do |form| %>
+  <div>
+    <%= form.submit "Refresh members"%>
+  </div>
+<% end %>
+
+<%= form_with url: "/refresh", method: :get, remote: false, class: "form-style-6" do |form| %>
+  <div>
+    <a href="https://forms.gle/rpPw5Rr589vxARir8" target=”_blank”> Register Here </a>
+  </div>
+<% end %>

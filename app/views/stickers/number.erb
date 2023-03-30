@@ -1,0 +1,21 @@
+<%= form_with url: "/get_number", method: :post, class: "form-style-6" do |form| %>
+
+	<% if !flash.empty? %>
+			<div id="flash"> 
+					<% flash.keys.each do |k| %> 
+							<div class="<%= k %>">
+									<%= flash[k] %>
+							</div>  
+					<% end %>   
+			</div>
+	<% end %>
+	
+  <div>
+    <%= form.label :number, style: "display: block" %>
+    <%= form.text_field :number, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Check Number"%>
+  </div>
+<% end %>

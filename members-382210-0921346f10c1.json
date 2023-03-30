@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "members-382210",
+  "private_key_id": "0921346f10c186c2315741b8f4690f4a176d008c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC4loApbQJ27d/Z\nbNzsFh4wN24mSF8JDu+TnurCg8quGaDqqX+R3yvql3FGWl8dbqFQVG+WN7dpn5/n\nkS3ajsB/uE+V0bC2B6aH/NZ1rBhawUKwx3uHbv6II9ts5GxAmO4VZsqonhIN9zK7\nFC7+JJij0TkKrR4TT5EeQn7gJvroeIVBZTZBPwccBGSChNfKyP/+MEDNq7k+ZSEm\ni5iZM6V+GdDRr2s+7mUxI9uuIgRqn7/ULbAW8SGdwe7MuElhgb8Fq64sWyVeBbkv\nylH9aVENjnuD1JqOb/5be4e1Fo20jMiEzw/iwHE4aTNf17+10y/v1GZSKUxawGra\n4+tc5SYtAgMBAAECggEABOjDydZDXYRgErlJeuHvtZqTzGLaXDRQfN2aIsg8iLrX\nw8X0RZ3o3hlfAt7+bpr1oVxNh3I954o+R3td+9UWG498VmC4UW8Mp8s6rPCByVAg\nhPEZQPXbwSUq/c9pbaJjmqAcPbXOhx6O89jKkynIAXtcCAOorBzOoD5mf3Gp9KrM\nUrAIsZMk8jD06zEXLTnY97cAunvebRCFkiPkoCQ/vYra1Jpmg69UuJIgjTeb7Mi8\nB9guguRCsqUsdu5vQTXPomANJlbKU73VYEx0uJvSnp61SdqGSBdJLmBE7W21l0AE\nmyKoTfGhC60EiSRBwtdgk7wL1Hf/fwNRoGF1HZlJRQKBgQDnRPMe9xD5yM/04K1L\nR8s3G+fxwnueUtyWK1u19oFlfQuEIOcB5637T5qjk7NlYj41knE/nxDBRg9/B7zt\nQfLaEm++jrn5glgBccwkKCQhOUYhlmMt7cF/nIm9T2DHRUObuofsD4KIaqUYrR3o\nRWVWEDNz5Ki4HsVxEeH1X3ue5wKBgQDMU6LMAFOTOV6SkPNA+O1OdLgpOc5NA3s7\nIb8e/s3hJ5iZcB/uP6Cz62YZNZR+Xn+tIKiPJ2xoJAQ6lf9MUCneUEBD3RZs2Ebj\no0lgDeIpJ6iREb+Kf9h1+68Qy0C230K70nbPI0woWubh1bZUtSU79+sI+Hg2YXXQ\njtViqvUTywKBgCDW35b0CksNwsnI5ZKc/TQ0GDlyHk+bAIuqWHl8KV+Z4/q9GVBh\n74iSAylbHcw1qRO+WappEd3/7s9g7+jYxn1ExO1QIwRVB94cpJo1wPuewGCglDC/\nZAyU09I35Uwmf7UrRYW1phls20invGlxATS5VDUOsQ6EABFQMr++8TTdAoGBAIef\n2EaKzO7DPMgSmLR+xp22EeujaBFshyaX3tGHFkcmTj9C0p8E8vmZ/bor+3Xp6duT\n+u6Sn318sqXknIIeD7x2DkI9hT4YTO2anAC7Fmx024n3eulGtPqTZf/CuiDojtY2\n/A/AATQkKm6quYz+dEma5RKeQsTt6hLWTENi8KwDAoGAVd0Jlr2TWE544Z4lHcA3\n4Pwvnpsk5kqQSHouErezIq1Oa7YIv5F/2dz7No+Ecy8dBYjLIObAEp5NFV4WxP+c\n8DrWaPhVoYiRoYyAwjme4SatHK3k+OLv0PjZPgWfP/+9DX3Y2cbtDsOYvqkCP5HJ\ngSOepIvX8g9bsmpfjL4Z5rU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "vag-culture@members-382210.iam.gserviceaccount.com",
+  "client_id": "117790295573247527098",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vag-culture%40members-382210.iam.gserviceaccount.com"
+}

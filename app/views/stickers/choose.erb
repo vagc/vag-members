@@ -1,0 +1,28 @@
+<%= form_with url: "/confirm", method: :post, class: "form-style-6" do |form| %>
+
+	<% if !flash.empty? %>
+			<div id="flash"> 
+					<% flash.keys.each do |k| %> 
+							<div class="<%= k %>">
+									<%= flash[k] %>
+							</div>  
+					<% end %>   
+			</div>
+	<% end %>
+	<p> YOUR CHOSEN NUMBER WILL APPEAR ON THE STICKER </p>
+  <div>
+		<%= image_tag('/black.jpeg', :class => "style_image") %>
+    <%= form.label :Black, style: "display: block", :value => "yes" %>
+    <%= form.radio_button :color, "black" %>
+  </div>
+
+	<div>
+		<%= image_tag('/white.jpeg', :class => "style_image") %>
+    <%= form.label :White, style: "display: block", :value => "white" %>
+    <%= form.radio_button :color, "white" %>
+  </div>
+
+  <div>
+    <%= form.submit "Choose"%>
+  </div>
+<% end %>

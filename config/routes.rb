@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   get "/choose" => "stickers#choose"
   post "/confirm" => "stickers#confirm"
   get "/refresh" => "stickers#refresh"
+  get "/export" => "stickers#export"
 end

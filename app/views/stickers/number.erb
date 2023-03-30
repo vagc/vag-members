@@ -9,6 +9,9 @@
 					<% end %>   
 			</div>
 	<% end %>
+
+	<p> Choose your sticker number (1-1000) </p>
+	<p> You can also choose your plate number i.e if you have KCD 123L, you can choose 123 </p>
 	
   <div>
     <%= form.label :number, style: "display: block" %>
@@ -18,4 +21,11 @@
   <div>
     <%= form.submit "Check Number"%>
   </div>
+
+	<p> TAKEN NUMBERS </p>
+
+	<% Sticker.all.pluck(:sticker_number).each do |number|%>
+		<p> <%= number %> </p>
+	<% end %>
 <% end %>
+

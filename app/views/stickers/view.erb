@@ -19,7 +19,7 @@
 
 	<% Sticker.includes(:member).each do |sticker|%>
 		<div>
-    	<p><%= sticker.member.name %>:  <%= sticker.sticker_number %></p>
+    	<p><%= sticker.member.name %>:  <%= sticker.sticker_number %> <%= sticker.sticker_variant.titleize %></p>
   	</div>
 	<% end %>
 <% end %>

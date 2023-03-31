@@ -54,7 +54,7 @@ class StickersController < ApplicationController
 
   def get_email
     if params[:email]
-      @member = Member.find_by_email(params[:email])
+      @member = Member.find_by_email(params[:email].strip.downcase)
 
       if @member && !@member.stickers.empty?
         flash[:error] = "You already have a sticker number"

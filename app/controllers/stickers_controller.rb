@@ -160,7 +160,6 @@ class StickersController < ApplicationController
   end
 
   def view
-    
   end
 
 

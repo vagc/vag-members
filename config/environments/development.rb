@@ -69,4 +69,5 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.hosts << "8588d5ca16e1.ngrok.app"
+  config.hosts << "vag-sticker.ngrok.dev"
 end

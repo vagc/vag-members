@@ -36,3 +36,6 @@
 
 #DB
 config/database.yml
+
+stickers.csv
+vagc_members.csv

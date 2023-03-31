@@ -16,7 +16,6 @@
 <p> The email you registered with. </p>
 
   <div>
-    <%= form.label :email, style: "display: block" %>
     <%= form.text_field :email, required: true %>
   </div>
 
@@ -34,6 +33,6 @@
 
 <%= form_with url: "/refresh", method: :get, remote: false, class: "form-style-6" do |form| %>
   <div>
-    <a href="https://forms.gle/rpPw5Rr589vxARir8" target=”_blank”> Register Here </a>
+    <a href="https://forms.gle/rpPw5Rr589vxARir8" target=”_blank” style="color: #000000"> Register Here </a>
   </div>
 <% end %>

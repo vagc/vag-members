@@ -50,7 +50,6 @@ class StickersController < ApplicationController
   end
 
   def email
-    
   end
 
   def get_email
@@ -158,6 +157,10 @@ class StickersController < ApplicationController
         csv << sticker.attributes.values
       end
     end
+  end
+
+  def view
+    
   end
 
 

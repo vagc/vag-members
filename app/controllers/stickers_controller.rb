@@ -56,7 +56,7 @@ class StickersController < ApplicationController
     if params[:email]
       @member = Member.find_by_email(params[:email])
 
-      if !@member&.sticker.empty?
+      if !@member&.stickers.empty?
         flash[:error] = "You already have a sticker number"
         redirect_to(request.referer) && return
       end

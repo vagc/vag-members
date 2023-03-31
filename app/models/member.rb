@@ -1,3 +1,3 @@
 class Member < ApplicationRecord
-	has_one :sticker
+	has_many :sticker
 end

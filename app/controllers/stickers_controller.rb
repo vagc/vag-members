@@ -56,18 +56,19 @@ class StickersController < ApplicationController
     if params[:email]
       @member = Member.find_by_email(params[:email].strip.downcase)
 
-      if @member && !@member.stickers.empty?
-        flash[:error] = "You already have a sticker number"
-        redirect_to(request.referer) && return
+      if !@member
+        flash[:error] = %Q[Email not registered, If you have already registered, Click refresh and try again]
+        redirect_to(request.referer)
       end
 
-      if @member
-        session[:email] = @member.email
-        redirect_to(number_path) && return
+      if !@member.stickers.empty?
+        session[:additional_sticker] = true
+        session[:member_number] = @member.stickers.first.sticker_number
       end
 
-      flash[:error] = %Q[Email not registered, If you have already registered, Click refresh and try again]
-      redirect_to(request.referer)
+      
+      session[:email] = @member.email
+      redirect_to(number_path) && return
     end
   end
 
@@ -80,9 +81,9 @@ class StickersController < ApplicationController
       redirect_to(request.referer) && return
     end
 
-    exists = Sticker.find_by_sticker_number(params[:number])
+    @member = Member.find_by_email(session[:email])
 
-    if exists || params[:number].to_i == 0 || params[:number].to_i == 1
+    if !sticker_belongs_to_current_member? && ( params[:number].to_i == 0 || params[:number].to_i == 1 )
       flash[:error] = "Number already taken"
       redirect_to(request.referer) && return
     end
@@ -97,18 +98,32 @@ class StickersController < ApplicationController
   def confirm
     @member = Member.find_by_email(session[:email])
 
-    sticker = Sticker.find_by_sticker_number(session[:number])
+    sticker = Sticker.where(sticker_number: sticker_number, discarded_at: nil).first
+
+    if sticker && !sticker_belongs_to_current_member?
+      flash[:error] = "Sorry, that number just got taken. Try again"
+      redirect_to(number_path) && return
+    end
 
     if sticker
-      flash[:error] = "Sorry, that number just got taken. Try again"
-      redirect_to(request.referer)
+      sticker.discard
+      sticker.reload
     end
-
-    if !Sticker.create(member: @member, sticker_number: session[:number], sticker_variation: params[:color])
-      flash[:error] = "Something went wrong. Contact admins"
-    end
+      
+    Sticker.create!(member: @member, sticker_number: session[:number], sticker_variation: params[:color], payment_code: params[:code])
+    flash[:success] = "Sticker ordered!"
+    reset_session
+    redirect_to root_path && return 
   rescue => e
     flash[:error] = "Something went wrong. Contact admins"
+  end
+
+  def sticker_number
+    session[:number] ||= session[:member_number]
+  end
+
+  def sticker_belongs_to_current_member?
+    @member.stickers.pluck(:sticker_number).include?(sticker_number) ? true : false
   end
 
   def refresh

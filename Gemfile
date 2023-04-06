@@ -54,6 +54,7 @@ gem "pg"
 gem "unicorn"
 gem "thin"
 gem "passenger"
+gem 'discard', '~> 1.2'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

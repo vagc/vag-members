@@ -10,20 +10,30 @@
 			</div>
 	<% end %>
 	<p> YOUR CHOSEN NUMBER WILL APPEAR ON THE STICKER </p>
-  <div>
-		<%= image_tag('/black.jpeg', :class => "style_image") %>
-    <%= form.label :Black, style: "display: block", :value => "yes" %>
-    <%= form.radio_button :color, "black" %>
-  </div>
+	</p>
+	</p>
 
 	<div>
 		<%= image_tag('/white.jpeg', :class => "style_image") %>
-    <%= form.label :White, style: "display: block", :value => "white" %>
-    <%= form.radio_button :color, "white" %>
-  </div>
+		</p>
+		</p>
+		<%= form.label :White, style: "display: block", :value => "white" %>
+		<%= form.radio_button :color, "white", checked: "checked" %>
+	</div>
+</p>
+	</p>
+	<% if session[:additional_sticker] %>
+		<div>
+			<p> You are requesting an additional sticker. Please pay 200 to Till number 8140886: JAMES WACHIRA and enter your confirmation code below" </p>
+			<%= form.label :Code, style: "display: block", :value => "white" %>
+			<%= form.text_field :code, required: true %>
+		</div>
+	<% end %>
 
-  <div>
+	</p>
+	</p>
+	<div>
 		<p style="color: #ffa500;background: #fff;font-size: larger;" > WARNING: This will finalize your sticker request </p>
-    <%= form.submit "Confirm Sticker"%>
-  </div>
+		<%= form.submit "Confirm Sticker"%>
+	</div>
 <% end %>

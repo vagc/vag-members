@@ -9,10 +9,16 @@ Things you may want to cover:
 
 * Configuration
 
+Run 
+
+`bundle install`
+
 * Database creation
 
-- rails db:create
-- rails db:migrate
+```
+rails db:create
+rails db:migrate
+```
 
 * Database initialization
 

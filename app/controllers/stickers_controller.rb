@@ -83,7 +83,7 @@ class StickersController < ApplicationController
 
     @member = Member.find_by_email(session[:email])
 
-    if !sticker_belongs_to_current_member? && ( params[:number].to_i == 0 || params[:number].to_i == 1 )
+    if !sticker_belongs_to_current_member?
       flash[:error] = "Number already taken"
       redirect_to(request.referer) && return
     end

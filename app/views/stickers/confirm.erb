@@ -1,4 +1,4 @@
-<%= form_with url: "/get_number", method: :post, class: "form-style-6" do |form| %>
+<%= form_with url: "/logout", method: :post, class: "form-style-6" do |form| %>
 	<% if !flash.empty? %>
 				<div id="flash"> 
 						<% flash.keys.each do |k| %> 
@@ -10,4 +10,5 @@
 	<% else %>
 		<p> SUCCESS!! </p>
 	<% end %>
+	<%= form.submit "Ok" %>
 <% end %>

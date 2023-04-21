@@ -55,16 +55,19 @@ class StickersController < ApplicationController
   def get_email
     if params[:email]
       @member = Member.find_by_email(params[:email].strip.downcase)
+      @id = @member.id
 
-      if !@member
-        flash[:error] = %Q[Email not registered, If you have already registered, Click refresh and try again]
-        redirect_to(request.referer)
+      if @member.nil?
+        flash[:error] = %Q[Email not registered, If you have already registered, Click Refresh members button and try again]
+        return redirect_to(request.referer)
       end
-
       if !@member.stickers.empty?
-        session[:additional_sticker] = true
-        session[:member_number] = @member.stickers.first.sticker_number
-      end
+          session[:additional_sticker] = true
+          session[:member_number] = @member.stickers.first.sticker_number
+          @sticker = Sticker.find_by(member_id: @id)
+          session[:sticker_created] = @sticker.created_at.strftime("%B %d, %Y")
+        end
+      
 
       
       session[:email] = @member.email
@@ -76,14 +79,14 @@ class StickersController < ApplicationController
   end
 
   def get_number
-    if !params[:number].to_i || params[:number].to_i > 1000
+    if !params[:number].to_i && params[:number].to_i > 1000
       flash[:error] = "Enter a below 1000."
       redirect_to(request.referer) && return
     end
 
     @member = Member.find_by_email(session[:email])
 
-    if !sticker_belongs_to_current_member?
+    if !first_time_sticker? && !sticker_belongs_to_current_member?
       flash[:error] = "Number already taken"
       redirect_to(request.referer) && return
     end
@@ -118,12 +121,23 @@ class StickersController < ApplicationController
     flash[:error] = "Something went wrong. Contact admins"
   end
 
+  def reset_session_and_redirect
+    flash[:success] = "Sticker ordered!"
+    reset_session
+    redirect_to root_path
+  end
+  
+
   def sticker_number
     session[:number] ||= session[:member_number]
   end
 
   def sticker_belongs_to_current_member?
     @member.stickers.pluck(:sticker_number).include?(sticker_number) ? true : false
+  end
+
+  def first_time_sticker?
+    @member.stickers.empty?
   end
 
   def refresh

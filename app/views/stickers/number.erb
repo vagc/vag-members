@@ -12,12 +12,13 @@
                         <% end %>   
                 </div>
         <% end %>
-        <p> You are about to order a new sticker with the number <%= session[:member_number] %> </p>
+        <p> You ordered a sticker with the number <strong><%= session[:member_number] %></strong> on <em><%= session[:sticker_created] %></em> </p>
 
         
         <%= form.hidden_field :number, { value: session[:member_number] } %>
+        <p>Click below to order an extra sticker!</p>
         <div>
-            <%= form.submit "Order new sticker" %>
+            <%= form.submit "Order extra sticker" %>
         </div>
         <% end %>
     

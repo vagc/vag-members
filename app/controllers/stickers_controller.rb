@@ -76,14 +76,14 @@ class StickersController < ApplicationController
   end
 
   def get_number
-    if !params[:number].to_i || params[:number].to_i > 1000
+    if !params[:number].to_i && params[:number].to_i > 1000
       flash[:error] = "Enter a below 1000."
       redirect_to(request.referer) && return
     end
 
     @member = Member.find_by_email(session[:email])
 
-    if !sticker_belongs_to_current_member?
+    if sticker_belongs_to_current_member?
       flash[:error] = "Number already taken"
       redirect_to(request.referer) && return
     end

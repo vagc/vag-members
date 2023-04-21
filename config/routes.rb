@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get "/refresh" => "stickers#refresh"
   get "/export" => "stickers#export"
   get "/view69" => "stickers#view"
+  post "/logout" => "stickers#reset_session_and_redirect"
 end

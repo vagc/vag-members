@@ -56,15 +56,15 @@ class StickersController < ApplicationController
     if params[:email]
       @member = Member.find_by_email(params[:email].strip.downcase)
 
-      if !@member
-        flash[:error] = %Q[Email not registered, If you have already registered, Click refresh and try again]
-        redirect_to(request.referer)
+      if @member.nil?
+        flash[:error] = %Q[Email not registered, If you have already registered, Click Refresh members button and try again]
+        return redirect_to(request.referer)
       end
-
       if !@member.stickers.empty?
-        session[:additional_sticker] = true
-        session[:member_number] = @member.stickers.first.sticker_number
-      end
+          session[:additional_sticker] = true
+          session[:member_number] = @member.stickers.first.sticker_number
+        end
+      
 
       
       session[:email] = @member.email

@@ -46,10 +46,23 @@
         </div>
 
         <p> TAKEN NUMBERS </p>
+        <div class="sticker-container">
+            <%# display sticker records that have not been discarded. %>
+            <% if Sticker.kept.count > 0 %>
+                <% Sticker.kept.pluck(:sticker_number).each_slice((Sticker.kept.count / 3.0).ceil).to_a.each do |column| %>
+                        <div class="sticker-column">
+                                <% column.each do |number| %>
+                                <div class="sticker-row">
+                                <div class="sticker-number"><%= number %></div>
+                                </div>
+                                <% end %>
+                        </div>
+                <% end %>
+            <% else %>
+                <p>No numbers found.</p>
+            <% end %>
+        </div>
 
-        <% Sticker.all.pluck(:sticker_number).each do |number|%>
-            <p> <%= number %> </p>
-        <% end %>
       <% end %>
     <% end %>
 

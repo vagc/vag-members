@@ -71,8 +71,6 @@ class StickersController < ApplicationController
           session[:sticker_created] = @sticker.created_at.strftime("%B %d, %Y")
         end
       
-
-      
       session[:email] = @member.email
       redirect_to(number_path) && return
     end

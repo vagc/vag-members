@@ -12,7 +12,7 @@
                         <% end %>   
                 </div>
         <% end %>
-        <p> You ordered a sticker with the number <strong><%= session[:member_number] %></strong> on <em><%= session[:sticker_created] %></em> </p>
+        <p> You ordered a sticker with the number <strong><%= session[:member_number] %></strong> with the color <strong><%= session[:sticker_color].humanize %></strong> on <em><%= session[:sticker_created] %></em> </p>
 
         
         <%= form.hidden_field :number, { value: session[:member_number] } %>

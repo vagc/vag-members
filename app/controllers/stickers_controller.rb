@@ -55,23 +55,20 @@ class StickersController < ApplicationController
   def get_email
     if params[:email]
       @member = Member.find_by_email(params[:email].strip.downcase)
-      @id = @member.id
 
       if @member.nil?
         flash[:error] = %Q[Email not registered, If you have already registered, Click Refresh members button and try again]
         return redirect_to(request.referer)
-      if @member.nil?
-        flash[:error] = %Q[Email not registered, If you have already registered, Click Refresh members button and try again]
-        return redirect_to(request.referer)
       end
+
+      @id = @member.id
+
       if !@member.stickers.empty?
           session[:additional_sticker] = true
           session[:member_number] = @member.stickers.first.sticker_number
           @sticker = Sticker.find_by(member_id: @id)
           session[:sticker_created] = @sticker.created_at.strftime("%B %d, %Y")
         end
-      
-
       
       session[:email] = @member.email
       redirect_to(number_path) && return
@@ -83,16 +80,17 @@ class StickersController < ApplicationController
 
   def get_number
     if !params[:number].to_i && params[:number].to_i > 1000
-    if !params[:number].to_i && params[:number].to_i > 1000
       flash[:error] = "Enter a below 1000."
       redirect_to(request.referer) && return
     end
 
     @member = Member.find_by_email(session[:email])
 
-    if !first_time_sticker? && !sticker_belongs_to_current_member?
-      flash[:error] = "Number already taken"
-      redirect_to(request.referer) && return
+    if !first_time_sticker?
+      if !sticker_belongs_to_current_member?
+        flash[:error] = "Number already taken"
+        redirect_to(request.referer) && return
+      end
     end
 
     session[:number] = params[:number].to_i
@@ -207,13 +205,13 @@ class StickersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sticker
-      @sticker = Sticker.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sticker
+    @sticker = Sticker.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def sticker_params
-      params.require(:sticker).permit(:member_id, :sticker_number, :sticker_variation)
-    end
+  # Only allow a list of trusted parameters through.
+  def sticker_params
+    params.require(:sticker).permit(:member_id, :sticker_number, :sticker_variation)
+  end
 end

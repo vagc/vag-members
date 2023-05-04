@@ -39,3 +39,6 @@ config/database.yml
 
 stickers.csv
 vagc_members.csv
+
+.byebug_history
+node_modules/.yarn-integrity

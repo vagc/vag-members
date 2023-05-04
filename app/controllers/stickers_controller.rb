@@ -63,12 +63,12 @@ class StickersController < ApplicationController
 
       @id = @member.id
 
-      if !@member.stickers.empty?
-          session[:additional_sticker] = true
-          session[:member_number] = @member.stickers.first.sticker_number
-          @sticker = Sticker.find_by(member_id: @id)
-          session[:sticker_created] = @sticker.created_at.strftime("%B %d, %Y")
-        end
+      if !first_time_sticker?
+        session[:additional_sticker] = true
+        session[:member_number] = @member.stickers.first.sticker_number
+        @sticker = Sticker.find_by(member_id: @id)
+        session[:sticker_created] = @sticker.created_at.strftime("%B %d, %Y")
+      end
       
       session[:email] = @member.email
       redirect_to(number_path) && return
@@ -79,21 +79,24 @@ class StickersController < ApplicationController
   end
 
   def get_number
-    if !params[:number].to_i && params[:number].to_i > 1000
-      flash[:error] = "Enter a below 1000."
+    if params[:number].to_i.is_a?(Integer)
+       if params[:number].to_i > 1000
+        flash[:error] = "Enter a number below 1000."
+        redirect_to(request.referer) && return
+       end
+    else
+      flash[:error] = "Enter a number."
       redirect_to(request.referer) && return
     end
 
+    session[:number] = params[:number].to_i
     @member = Member.find_by_email(session[:email])
 
-    if !first_time_sticker?
-      if !sticker_belongs_to_current_member?
-        flash[:error] = "Number already taken"
-        redirect_to(request.referer) && return
-      end
+    if !sticker_belongs_to_current_member?
+      flash[:error] = "Number already taken"
+      redirect_to(request.referer) && return
     end
 
-    session[:number] = params[:number].to_i
     redirect_to(choose_path)
   end
 
@@ -131,11 +134,22 @@ class StickersController < ApplicationController
   
 
   def sticker_number
-    session[:number] ||= session[:member_number]
+    session[:number]
   end
 
   def sticker_belongs_to_current_member?
-    @member.stickers.pluck(:sticker_number).include?(sticker_number) ? true : false
+    sticker_belongs_to_member = @member.stickers.pluck(:sticker_number).include?(sticker_number) ? true : false
+    sticker = Sticker.find_by_sticker_number(sticker_number)
+
+    if first_time_sticker? && sticker.nil? # First time sticker and sticker is not taken
+      return true
+    elsif first_time_sticker? && !sticker.nil? # First time sticker and sticker is taken 
+      return false
+    elsif !first_time_sticker? && sticker_belongs_to_member # Additional sticker and it belongs to member
+      return true
+    elseif !first_time_sticker? && !sticker_belongs_to_member # Additional sticker and it does not belongs to member
+      return false
+    end
   end
 
   def first_time_sticker?

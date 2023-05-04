@@ -60,6 +60,9 @@ class StickersController < ApplicationController
       if @member.nil?
         flash[:error] = %Q[Email not registered, If you have already registered, Click Refresh members button and try again]
         return redirect_to(request.referer)
+      if @member.nil?
+        flash[:error] = %Q[Email not registered, If you have already registered, Click Refresh members button and try again]
+        return redirect_to(request.referer)
       end
       if !@member.stickers.empty?
           session[:additional_sticker] = true
@@ -79,6 +82,7 @@ class StickersController < ApplicationController
   end
 
   def get_number
+    if !params[:number].to_i && params[:number].to_i > 1000
     if !params[:number].to_i && params[:number].to_i > 1000
       flash[:error] = "Enter a below 1000."
       redirect_to(request.referer) && return

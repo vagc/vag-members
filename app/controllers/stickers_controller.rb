@@ -68,6 +68,7 @@ class StickersController < ApplicationController
         session[:member_number] = @member.stickers.first.sticker_number
         @sticker = Sticker.find_by(member_id: @id)
         session[:sticker_created] = @sticker.created_at.strftime("%B %d, %Y")
+        session[:sticker_color] = @sticker.sticker_variation
       end
       
       session[:email] = @member.email

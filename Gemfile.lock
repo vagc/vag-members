@@ -71,6 +71,7 @@ GEM
     autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
     awesome_print (1.9.2)
+    bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -97,6 +98,12 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     declarative (0.0.20)
+    devise (4.9.2)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     discard (1.2.1)
       activerecord (>= 4.2, < 8)
     dockerfile-rails (1.2.5)
@@ -205,6 +212,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
     os (1.1.4)
     passenger (6.0.17)
       rack
@@ -261,6 +269,9 @@ GEM
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     retriable (3.1.2)
     rexml (3.2.5)
     ruby2_keywords (0.0.5)
@@ -313,6 +324,8 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -344,6 +357,7 @@ DEPENDENCIES
   byebug
   capybara
   debug
+  devise
   discard (~> 1.2)
   dockerfile-rails (>= 1.2)
   foreman

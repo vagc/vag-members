@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_132710) do
     t.datetime "updated_at", null: false
     t.string "payment_code"
     t.datetime "discarded_at"
+    t.boolean "collected"
     t.index ["discarded_at"], name: "index_stickers_on_discarded_at"
     t.index ["member_id"], name: "index_stickers_on_member_id"
   end

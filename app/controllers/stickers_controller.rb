@@ -131,36 +131,36 @@ class StickersController < ApplicationController
   def change_number
     if params[:new_number].present?
       @new_number = params[:new_number].to_i
-
-      if sticker_number_available?(@new_number)
-        @sticker = Sticker.new
-      else
+  
+      if !sticker_number_available?(@new_number)
         flash[:error] = "Sticker number #{@new_number} is already taken."
         redirect_to change_number_form_path and return
       end
+  
+      @sticker = Sticker.new
     end
-
-    if params[:old_sticker_number].present?
-      @old_sticker_number = params[:old_sticker_number].to_i
-
-      @member = Member.joins(:stickers).find_by(stickers: { sticker_number: @old_sticker_number })
-
-      if @member.nil?
-        flash[:error] = "Old sticker number not found."
-        redirect_to change_number_path(new_number: @new_number) and return
-      end
-    
-      # Discard old sticker
-      @member.stickers.find_by(sticker_number: @old_sticker_number)&.discard
-
-      # Create and assign new sticker to member
-      @member.stickers.create(sticker_number: @new_number)
-
-      flash[:success] = "Sticker number successfully changed!"
-       return
+  
+    # guard clause to handle the case when the old sticker number is nil to avoid an infinite redirect loop.
+    return unless params[:old_sticker_number].present?
+  
+    @old_sticker_number = params[:old_sticker_number].to_i
+  
+    @member = Member.joins(:stickers).find_by(stickers: { sticker_number: @old_sticker_number })
+  
+    if @member.nil?
+      flash[:error] = "Old sticker number not found."
+      redirect_to change_number_path(new_number: @new_number) and return
     end
-      
+  
+    # Discard old sticker
+    @member.stickers.find_by(sticker_number: @old_sticker_number)&.discard
+  
+    # Create and assign new sticker to member
+    @member.stickers.create(sticker_number: @new_number)
+  
+    flash[:success] = "Sticker number successfully changed!"
   end
+  
 
   def reset_session_and_redirect
     flash[:success] = "Sticker ordered!"

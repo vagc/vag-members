@@ -65,7 +65,8 @@ class StickersController < ApplicationController
 
       if !first_time_sticker?
         session[:additional_sticker] = true
-        session[:member_number] = @member.stickers.first.sticker_number
+        # set session to the most recent active sticker
+        session[:member_number] = @member.stickers.kept.last.sticker_number
         @sticker = Sticker.find_by(member_id: @id)
         session[:sticker_created] = @sticker.created_at.strftime("%B %d, %Y")
         session[:sticker_color] = @sticker.sticker_variation
@@ -127,6 +128,40 @@ class StickersController < ApplicationController
     flash[:error] = "Something went wrong. Contact admins"
   end
 
+  def change_number
+    if params[:new_number].present?
+      @new_number = params[:new_number].to_i
+  
+      if !sticker_number_available?(@new_number)
+        flash[:error] = "Sticker number #{@new_number} is already taken."
+        redirect_to change_number_form_path and return
+      end
+  
+      @sticker = Sticker.new
+    end
+  
+    # guard clause to handle the case when the old sticker number is nil to avoid an infinite redirect loop.
+    return unless params[:old_sticker_number].present?
+  
+    @old_sticker_number = params[:old_sticker_number].to_i
+  
+    @member = Member.joins(:stickers).find_by(stickers: { sticker_number: @old_sticker_number })
+  
+    if @member.nil?
+      flash[:error] = "Old sticker number not found."
+      redirect_to change_number_path(new_number: @new_number) and return
+    end
+  
+    # Discard old sticker
+    @member.stickers.find_by(sticker_number: @old_sticker_number)&.discard
+  
+    # Create and assign new sticker to member
+    @member.stickers.create(sticker_number: @new_number)
+  
+    flash[:success] = "Sticker number successfully changed!"
+  end
+  
+
   def reset_session_and_redirect
     flash[:success] = "Sticker ordered!"
     reset_session
@@ -157,6 +192,11 @@ class StickersController < ApplicationController
     @member.stickers.empty?
   end
 
+
+  def sticker_number_available?(number)
+    !Sticker.exists?(sticker_number: number)
+  end
+  
   def refresh
     # Authenticate a session with your Service Account
     session = GoogleDrive::Session.from_service_account_key("members-382210-0921346f10c1.json")

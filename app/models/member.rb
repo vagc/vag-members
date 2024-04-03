@@ -4,4 +4,6 @@ class Member < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 	has_many :stickers
+  attribute :sticker_number, :integer
+
 end

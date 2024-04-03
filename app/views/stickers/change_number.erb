@@ -1,0 +1,39 @@
+<% if flash[:success] %>
+  <%= form_with(url: "/logout", method: :post, class: "form-style-6") do |form| %>
+    <div id="flash">
+      <div class="success">
+        <%= flash[:success] %>
+      </div>
+    </div>
+    <%= form.submit "Ok" %>
+  <% end %>
+<% else %>
+  <% if flash[:error] %>
+    <div id="flash">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
+  <%= form_with(url: change_number_path, method: :get, class: "form-style-6") do |form| %>
+    <div>
+      <%= form.label :new_number, "New Sticker Number" %>
+      <%= form.number_field :new_number, value: params[:new_number], required: true %>
+    </div>
+
+    <%= form.submit "Check Availability" %>
+  <% end %>
+
+  <% if @new_number.present? %>
+    <% if flash[:error].nil? %>
+      <%= form_with(url: change_number_path, method: :post, class: "form-style-6") do |form| %>
+        <div>
+          <%= form.label :old_sticker_number, "Old Sticker Number" %>
+          <%= form.number_field :old_sticker_number, required: true %>
+        </div>
+
+        <%= form.hidden_field :new_number, value: @new_number %>
+        <%= form.submit "Change Sticker Number" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

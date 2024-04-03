@@ -17,4 +17,7 @@ Rails.application.routes.draw do
   get "/export" => "stickers#export"
   get "/view69" => "stickers#view"
   post "/logout" => "stickers#reset_session_and_redirect"
+  get "/change_number" => "stickers#change_number", as: :change_number_form
+  post "/change_number" => "stickers#change_number"
+
 end

@@ -1,31 +1,11 @@
-# README
+I patched thing together real quick to create a platform where [VAG Culture](https://www.instagram.com/vagculture_ke/) members could register and choose their sticker numbers.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Thanks to [Ckawara](https://github.com/CKawara), [SKHinga](https://github.com/SKHinga) and [G-Vans](https://github.com/G-Vans) for using their own free time to polish it a little more
 
-Things you may want to cover:
+It's a simple Ruby on Rails app. No .env needed. 
 
-* Ruby version - 3.1.3
-
-* Configuration
-
-Run 
-
-`bundle install`
-
-* Database creation
-
-```
-rails db:create
-rails db:migrate
-```
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Install Rails
+Bundler
+Bundle
+Migrate
+Run
